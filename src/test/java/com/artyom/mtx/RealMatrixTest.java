@@ -28,7 +28,8 @@ public class RealMatrixTest extends Assert {
             firstMatrix.setElement(i, i, new Real(1.0));
         }
     }
-
+	
+	@Test
     public void testAdd() {
         AbstractMatrix sumMatrix =  firstMatrix.add(secondMatrix);
 
@@ -41,8 +42,30 @@ public class RealMatrixTest extends Assert {
         assertEquals(columns, secondMatrix.getColumnCount());
 
         for (int i = 0; i < rows; i++) {
-            Real sum = (Real) firstMatrix.getElement(i, i).add(secondMatrix.getElement(i, i));
-            assertEquals(sumMatrix.getElement(i, i), sum);
+            for(int j = 0; j <columns; j++) {
+                Real sum = (Real) firstMatrix.getElement(i, j).add(secondMatrix.getElement(i, j));
+                assertEquals(sumMatrix.getElement(i, j), sum); // ovveride equals for MatrixElement
+            }
+        }
+    }
+
+    @Test
+    public void testScalarMultiply() {
+        Real multiplier = new Real(3.0);
+
+        for (int i = 0; i < firstMatrix.getRowCount(); i++) {
+            firstMatrix.setElement(i, i, new Real(1.0));
+        }
+
+        AbstractMatrix scalarMultiplyMatrix =  firstMatrix.scalarMultiply(multiplier);
+
+        int rows = scalarMultiplyMatrix.getRowCount();
+        int columns = scalarMultiplyMatrix.getColumnCount();
+
+        for (int i = 0; i < rows; i++) {
+            for(int j = 0; j <columns; j++) {
+                assertEquals(scalarMultiplyMatrix.getElement(i, j), firstMatrix.getElement(i,j).multiply(multiplier)); // ovveride equals for MatrixElement
+            }
         }
     }
 }

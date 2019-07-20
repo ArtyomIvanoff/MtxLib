@@ -1,6 +1,6 @@
 package com.artyom.mtx;
 
-class Real extends MatrixElement<Double> {
+public class Real extends MatrixElement<Double> {
 
     public Real(Double value) {
         super(value);
