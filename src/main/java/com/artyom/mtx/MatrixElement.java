@@ -1,11 +1,25 @@
 package com.artyom.mtx;
 
-public interface MatrixElement {
-    MatrixElement add(MatrixElement anotherElement);
+abstract class MatrixElement<E> {
+    private E value;
 
-    MatrixElement subtract(MatrixElement anotherElement);
+    public E getValue() {
+        return value;
+    }
 
-    MatrixElement multiply(MatrixElement anotherElement);
+    public void setValue(E value) { this.value = value; }
 
-    MatrixElement divide(MatrixElement anotherElement);
+    public MatrixElement(E value) {
+        this.value = value;
+    }
+
+    public MatrixElement() {}
+
+    abstract MatrixElement<E> add(MatrixElement<E> anotherElement);
+
+    abstract MatrixElement<E> subtract(MatrixElement<E> anotherElement);
+
+    abstract MatrixElement<E> multiply(MatrixElement<E> anotherElement);
+
+    abstract MatrixElement<E> divide(MatrixElement<E> anotherElement);
 }
