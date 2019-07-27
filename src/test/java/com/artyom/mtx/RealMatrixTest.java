@@ -107,12 +107,12 @@ public class RealMatrixTest extends Assert {
         int rows = secondMatrix.getRowCount();
         int columns = secondMatrix.getColumnCount();
 
-        for(int i = 0; i < rows; i++) {
-            for(int j = 0; j < columns; j++) {
-                if(i == j)
-                    secondMatrix.setElement(i, j, i*j);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                if (i == j)
+                    secondMatrix.setElement(i, j, i * j);
                 else
-                    secondMatrix.setElement(i,j,1);
+                    secondMatrix.setElement(i, j, 1);
             }
         }
 
@@ -122,7 +122,7 @@ public class RealMatrixTest extends Assert {
             RealMatrix prod = secondMatrix.multiply(inverseMatrix);
             RealMatrix prod2 = inverseMatrix.multiply(secondMatrix);
 
-            for(int i = 0; i < rows; i++) {
+            for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < columns; j++) {
                     assertEquals(eqMatrix.getElement(i, j), prod.getElement(i, j), eps);
                     assertEquals(eqMatrix.getElement(i, j), prod2.getElement(i, j), eps);

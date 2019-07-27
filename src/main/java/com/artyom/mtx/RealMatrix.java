@@ -88,9 +88,15 @@ public class RealMatrix {
     public RealMatrix scalarMultiply(double scalar) {
         RealMatrix matrixScalMult = new RealMatrix(rowCount, columnCount);
 
-        for (int i = 0; i < rowCount; i++)
-            for (int j = 0; j < columnCount; j++)
-                matrixScalMult.matrixElements[i][j] = this.matrixElements[i][j] * scalar;
+        for (int i = 0; i < rowCount; i++) {
+            for (int j = 0; j < columnCount; j++) {
+				if(Math.abs(this.matrixElements[i][j]) < 1e-6 || Math.abs(scalar) < 1e-6) {
+					matrixScalMult.matrixElements[i][j] = 0.0;
+				} else {
+					matrixScalMult.matrixElements[i][j] = this.matrixElements[i][j] * scalar;
+				}
+			}
+		} 
 
         return matrixScalMult;
     }
@@ -245,7 +251,7 @@ public class RealMatrix {
 
     private static double getCofactorOf(double[][] matrix, int row, int column) {
         double minor = getDeterminantOf(getMatrixOfMinor(matrix, row, column));
-
-        return Math.pow(-1.0, (row + column + 2)) * minor;
+		
+        return Math.abs(minor) < 1e-6 ? 0.0 : Math.pow(-1.0, (row + column + 2)) * minor;
     }
 }
